@@ -1,2 +1,54 @@
 /* For information on how to create your own theme, please see:
 http://ionicframework.com/docs/theming/ */
+
+/* Custom Ionic Component Styles */
+.custom-searchbar {
+  --background: #f3f4f6;
+  --border-radius: 12px;
+  --box-shadow: none;
+  --color: #374151;
+  --placeholder-color: #9ca3af;
+  --icon-color: #6b7280;
+}
+
+.category-card {
+  --border-radius: 16px;
+  cursor: pointer;
+  transition: transform 0.2s ease;
+}
+
+.category-card:hover {
+  transform: translateY(-2px);
+}
+
+ion-toolbar {
+  --background: white;
+  --color: #111827;
+  --border-color: #e5e7eb;
+}
+
+ion-content {
+  --background: #f9fafb;
+}
+
+ion-card {
+  --background: white;
+  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
+}
+
+ion-chip {
+  --background: #e5e7eb;
+  --color: #374151;
+  font-size: 14px;
+  font-weight: 500;
+}
+
+ion-button {
+  --border-radius: 12px;
+}
+
+ion-input {
+  --background: #f3f4f6;
+  --color: #111827;
+  --placeholder-color: #9ca3af;
+}

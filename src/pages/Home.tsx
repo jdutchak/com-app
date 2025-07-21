@@ -1,6 +1,7 @@
 import React from 'react';
-import { IonContent, IonPage } from '@ionic/react';
+import { IonContent, IonPage, IonHeader, IonToolbar, IonTitle, IonButton, IonSearchbar, IonChip, IonIcon, IonGrid, IonRow, IonCol, IonCard, IonCardContent } from '@ionic/react';
 import { useHistory } from 'react-router-dom';
+import { home, bookmark, leafOutline, flameOutline, fastFoodOutline, snowOutline, flashOutline } from 'ionicons/icons';
 
 const Home: React.FC = () => {
   const history = useHistory();
@@ -16,92 +17,140 @@ const Home: React.FC = () => {
 
   return (
     <IonPage>
-      <IonContent className="bg-black">
-        <div className="min-h-screen bg-black text-white px-6 py-8">
-          {/* Header */}
-          <div className="flex items-center justify-between mb-12">
-            <div className="flex items-center space-x-3">
-              <div className="w-8 h-8 bg-white rounded-sm flex items-center justify-center">
-                <span className="text-black font-bold text-sm">E</span>
+      <IonHeader>
+        <IonToolbar className="bg-white">
+          <div className="flex items-center justify-between px-4 py-2">
+            <div className="flex items-center space-x-2">
+              <div className="w-8 h-8 bg-blue-500 rounded-full flex items-center justify-center">
+                <span className="text-white font-bold text-xs">E</span>
               </div>
-              <span className="text-white text-sm">GetPro</span>
+              <span className="text-gray-800 font-medium">GetPro</span>
             </div>
+            <IonButton fill="clear" className="text-gray-600">
+              <IonIcon icon="ellipsis-horizontal" />
+            </IonButton>
           </div>
-
-          {/* Main Content */}
-          <div className="flex flex-col items-start mb-12">
-            <h1 className="text-2xl font-normal text-white mb-4">
-              No idea what to eat?
+        </IonToolbar>
+      </IonHeader>
+      
+      <IonContent className="bg-gray-50">
+        <div className="px-6 py-8">
+          {/* Main Heading */}
+          <div className="mb-8">
+            <h1 className="text-3xl font-light text-gray-900 mb-2">
+              No idea what to <span className="text-blue-500 font-medium">eat</span>?
             </h1>
-            <h2 className="text-2xl font-normal text-white mb-6">
-              Let AI handle it."
+            <h2 className="text-3xl font-light text-gray-900 mb-4">
+              Let <span className="text-blue-500 font-medium">AI handle it</span>."
             </h2>
-            <p className="text-gray-400 text-sm mb-12">
+            <p className="text-gray-600 text-base">
               Get personalized food recommendations.
             </p>
+          </div>
 
-            {/* Large Search Icon */}
-            <div className="w-full flex justify-center mb-12">
-              <button 
-                onClick={handleSearch}
-                className="w-48 h-48 bg-white rounded-full flex items-center justify-center hover:bg-gray-100 transition-colors"
-              >
-                <svg className="w-24 h-24 text-black" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth={2}>
-                  <circle cx="11" cy="11" r="8"></circle>
-                  <path d="21 21l-4.35-4.35"></path>
-                </svg>
-              </button>
-            </div>
+          {/* Search Bar */}
+          <div className="mb-6">
+            <IonSearchbar
+              placeholder="What are you craving today?"
+              className="custom-searchbar"
+              onIonInput={handleSearch}
+            />
+          </div>
 
-            {/* Search Input */}
-            <div className="w-full mb-6">
-              <input
-                type="text"
-                placeholder="What are you craving today?"
-                className="w-full px-4 py-3 bg-gray-800 border border-gray-700 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500"
-              />
-            </div>
+          {/* Category Chips */}
+          <div className="flex flex-wrap gap-2 mb-8">
+            {['Nearby', 'Open Now', 'Popular', 'Surprise Me'].map((category) => (
+              <IonChip key={category} className="bg-gray-200 text-gray-700">
+                {category}
+              </IonChip>
+            ))}
+          </div>
 
-            {/* Category Pills */}
-            <div className="flex flex-wrap gap-2 mb-8">
-              {['Nearby', 'Open Now', 'Popular', 'Surprise Me'].map((category) => (
-                <button
-                  key={category}
-                  className="px-4 py-2 bg-gray-800 text-white rounded-lg text-sm hover:bg-gray-700 transition-colors"
-                >
-                  {category}
-                </button>
-              ))}
-            </div>
-
-            {/* Food Categories */}
-            <div className="grid grid-cols-2 gap-4 w-full">
-              <div className="bg-gray-900 rounded-xl p-4">
-                <div className="text-2xl mb-2">🍗</div>
-                <div className="text-white font-medium">Comfort Food</div>
-                <div className="text-red-500 text-xl">🌶️</div>
-              </div>
-              <div className="bg-gray-900 rounded-xl p-4">
-                <div className="text-2xl mb-2">🌶️</div>
-                <div className="text-white font-medium">Spicy Craving</div>
-              </div>
-              <div className="bg-gray-900 rounded-xl p-4">
-                <div className="text-2xl mb-2">🍕</div>
-                <div className="text-white font-medium">Budget Meal</div>
-              </div>
-              <div className="bg-gray-900 rounded-xl p-4">
-                <div className="text-2xl mb-2">🥗</div>
-                <div className="text-white font-medium">Light & Healthy</div>
-              </div>
-              <div className="bg-gray-900 rounded-xl p-4">
-                <div className="text-2xl mb-2">❄️</div>
-                <div className="text-white font-medium">Warm & Cozy</div>
-              </div>
-              <div className="bg-gray-900 rounded-xl p-4">
-                <div className="text-2xl mb-2">⚡</div>
-                <div className="text-white font-medium">Quick Bites</div>
-              </div>
-            </div>
+          {/* Food Categories Grid */}
+          <IonGrid className="px-0">
+            <IonRow>
+              <IonCol size="6">
+                <IonCard className="category-card bg-white shadow-sm rounded-2xl m-0" onClick={handleVoiceInput}>
+                  <IonCardContent className="p-4">
+                    <div className="text-2xl mb-2">🍗</div>
+                    <div className="text-gray-800 font-medium text-sm">Comfort</div>
+                    <div className="text-gray-800 font-medium text-sm">Food</div>
+                    <div className="text-red-500 text-lg mt-1">🌶️</div>
+                  </IonCardContent>
+                </IonCard>
+              </IonCol>
+              <IonCol size="6">
+                <IonCard className="category-card bg-white shadow-sm rounded-2xl m-0" onClick={handleVoiceInput}>
+                  <IonCardContent className="p-4">
+                    <div className="text-2xl mb-2">🌶️</div>
+                    <div className="text-gray-800 font-medium text-sm">Spicy</div>
+                    <div className="text-gray-800 font-medium text-sm">Craving</div>
+                  </IonCardContent>
+                </IonCard>
+              </IonCol>
+            </IonRow>
+            <IonRow>
+              <IonCol size="6">
+                <IonCard className="category-card bg-white shadow-sm rounded-2xl m-0" onClick={handleVoiceInput}>
+                  <IonCardContent className="p-4">
+                    <div className="text-2xl mb-2">🍕</div>
+                    <div className="text-gray-800 font-medium text-sm">Budget</div>
+                    <div className="text-gray-800 font-medium text-sm">Meal</div>
+                  </IonCardContent>
+                </IonCard>
+              </IonCol>
+              <IonCol size="6">
+                <IonCard className="category-card bg-white shadow-sm rounded-2xl m-0" onClick={handleVoiceInput}>
+                  <IonCardContent className="p-4">
+                    <div className="text-2xl mb-2">🥗</div>
+                    <div className="text-gray-800 font-medium text-sm">Light &</div>
+                    <div className="text-gray-800 font-medium text-sm">Healthy</div>
+                  </IonCardContent>
+                </IonCard>
+              </IonCol>
+            </IonRow>
+            <IonRow>
+              <IonCol size="6">
+                <IonCard className="category-card bg-white shadow-sm rounded-2xl m-0" onClick={handleVoiceInput}>
+                  <IonCardContent className="p-4">
+                    <div className="text-2xl mb-2">❄️</div>
+                    <div className="text-gray-800 font-medium text-sm">Warm &</div>
+                    <div className="text-gray-800 font-medium text-sm">Cozy</div>
+                  </IonCardContent>
+                </IonCard>
+              </IonCol>
+              <IonCol size="6">
+                <IonCard className="category-card bg-white shadow-sm rounded-2xl m-0" onClick={handleVoiceInput}>
+                  <IonCardContent className="p-4">
+                    <div className="text-2xl mb-2">⚡</div>
+                    <div className="text-gray-800 font-medium text-sm">Quick</div>
+                    <div className="text-gray-800 font-medium text-sm">Bites</div>
+                  </IonCardContent>
+                </IonCard>
+              </IonCol>
+            </IonRow>
+          </IonGrid>
+        </div>
+        
+        {/* Bottom Navigation */}
+        <div className="fixed bottom-0 left-0 right-0 bg-white border-t border-gray-200 px-6 py-4">
+          <div className="flex items-center justify-between">
+            <IonButton fill="clear" className="text-gray-900">
+              <IonIcon icon={home} size="large" />
+            </IonButton>
+            
+            <IonButton 
+              fill="solid" 
+              shape="round" 
+              className="w-16 h-16 bg-gradient-to-br from-blue-400 to-purple-500"
+              onClick={handleVoiceInput}
+            >
+              <div className="w-8 h-8 bg-blue-500 rounded-full opacity-80"></div>
+            </IonButton>
+            
+            <IonButton fill="clear" className="text-gray-600">
+              <IonIcon icon={bookmark} size="large" />
+            </IonButton>
           </div>
         </div>
       </IonContent>

@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
-import { IonContent, IonPage } from '@ionic/react';
+import { IonContent, IonPage, IonHeader, IonToolbar, IonTitle, IonButton, IonIcon, IonCard, IonCardContent, IonChip, IonInput } from '@ionic/react';
 import { useHistory } from 'react-router-dom';
+import { arrowBack, ellipsisHorizontal, star, location, bookmark, send } from 'ionicons/icons';
 
 const ChatResults: React.FC = () => {
   const history = useHistory();
@@ -57,31 +58,28 @@ const ChatResults: React.FC = () => {
 
   return (
     <IonPage>
+      <IonHeader>
+        <IonToolbar className="bg-white">
+          <div className="flex items-center justify-between px-4 py-2">
+            <IonButton fill="clear" onClick={handleBack}>
+              <IonIcon icon={arrowBack} className="text-gray-700" />
+            </IonButton>
+            
+            <IonTitle className="text-center">
+              <span className="text-gray-900 font-medium">Chat with </span>
+              <span className="text-blue-500 font-medium">Eato</span>
+            </IonTitle>
+            
+            <IonButton fill="clear">
+              <IonIcon icon={ellipsisHorizontal} className="text-gray-600" />
+            </IonButton>
+          </div>
+        </IonToolbar>
+      </IonHeader>
+      
       <IonContent className="bg-gray-50">
         <div className="min-h-screen bg-gray-50 flex flex-col">
-          {/* Header */}
-          <div className="bg-white px-6 py-4 shadow-sm">
-            <div className="flex items-center justify-between">
-              <div className="flex items-center space-x-3">
-                <button onClick={handleBack}>
-                  <svg className="w-6 h-6 text-gray-700" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
-                  </svg>
-                </button>
-                <div className="flex items-center space-x-2">
-                  <h1 className="text-lg font-semibold text-gray-900">Chat with</h1>
-                  <span className="text-lg font-semibold text-blue-500">Eato</span>
-                </div>
-              </div>
-              
-              <button className="p-2">
-                <svg className="w-6 h-6 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 5v.01M12 12v.01M12 19v.01M12 6a1 1 0 110-2 1 1 0 010 2zm0 7a1 1 0 110-2 1 1 0 010 2zm0 7a1 1 0 110-2 1 1 0 010 2z" />
-                </svg>
-              </button>
-            </div>
-          </div>
-
+          
           {/* Chat Messages */}
           <div className="flex-1 px-6 py-4 space-y-4">
             {messages.map((message) => (
@@ -95,6 +93,108 @@ const ChatResults: React.FC = () => {
                   <p className={`text-xs mt-1 ${message.isUser ? 'text-blue-100' : 'text-gray-500'}`}>
                     {message.time}
                   </p>
+                </div>
+                {!message.isUser && (
+                  <div className="w-8 h-8 bg-blue-500 rounded-full flex items-center justify-center ml-2 mt-1">
+                    <span className="text-white text-sm font-bold">E</span>
+                  </div>
+                )}
+              </div>
+            ))}
+
+            {/* AI Response */}
+            <div className="flex justify-start mb-4">
+              <div className="max-w-xs lg:max-w-md px-4 py-3 rounded-2xl bg-white text-gray-800 shadow-sm">
+                <p className="text-sm">You got it! Based on your craving for something quick, spicy, and affordable, here are 3 delicious picks near you :</p>
+                <p className="text-xs mt-1 text-gray-500">12:00</p>
+              </div>
+              <div className="w-8 h-8 bg-blue-500 rounded-full flex items-center justify-center ml-2 mt-1">
+                <span className="text-white text-sm font-bold">E</span>
+              </div>
+            </div>
+
+            {/* Food Recommendations */}
+            <div className="space-y-3 mt-6">
+              {foodRecommendations.map((food) => (
+                <IonCard key={food.id} className="rounded-2xl shadow-sm m-0">
+                  <IonCardContent className="p-4">
+                    <div className="flex items-start space-x-4">
+                      {/* Food Image */}
+                      <div className="w-20 h-20 bg-gradient-to-br from-orange-400 to-red-500 rounded-xl flex items-center justify-center flex-shrink-0">
+                        <span className="text-3xl">{food.image}</span>
+                      </div>
+                      
+                      {/* Food Details */}
+                      <div className="flex-1 min-w-0">
+                        <div className="flex items-start justify-between mb-2">
+                          <div>
+                            <h3 className="font-semibold text-gray-900 text-lg">{food.name}</h3>
+                            <div className="flex items-center space-x-2 mt-1">
+                              <span className="text-sm text-gray-600">{food.restaurant}</span>
+                              {food.isPopular && (
+                                <IonChip className="bg-red-500 text-white text-xs px-2 py-1 h-6">
+                                  Popular
+                                </IonChip>
+                              )}
+                            </div>
+                          </div>
+                          <div className="text-right">
+                            <span className="font-bold text-gray-900 text-lg">{food.price}</span>
+                            <IonButton fill="clear" size="small" className="text-gray-400 p-1">
+                              <IonIcon icon={bookmark} />
+                            </IonButton>
+                          </div>
+                        </div>
+                        
+                        <div className="flex items-center justify-between">
+                          <div className="flex items-center space-x-4">
+                            <div className="flex items-center space-x-1">
+                              <IonIcon icon={star} className="text-yellow-400 text-sm" />
+                              <span className="text-sm font-medium text-gray-700">{food.rating}</span>
+                            </div>
+                            <div className="flex items-center space-x-1">
+                              <IonIcon icon={location} className="text-gray-400 text-sm" />
+                              <span className="text-sm text-gray-600">{food.distance}</span>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </IonCardContent>
+                </IonCard>
+              ))}
+            </div>
+          </div>
+
+          {/* Message Input */}
+          <div className="bg-white border-t border-gray-200 px-6 py-4">
+            <div className="flex items-center space-x-3">
+              <div className="flex-1">
+                <IonInput
+                  value={newMessage}
+                  placeholder="Ask me anything..."
+                  onIonInput={(e) => setNewMessage(e.detail.value!)}
+                  className="bg-gray-100 rounded-2xl px-4 py-3"
+                  onKeyPress={(e: any) => e.key === 'Enter' && handleSendMessage()}
+                />
+              </div>
+              <IonButton 
+                fill="solid"
+                shape="round"
+                className="w-12 h-12 bg-gray-900 text-white"
+                onClick={handleSendMessage}
+              >
+                <span className="font-bold">0</span>
+              </IonButton>
+            </div>
+          </div>
+        </div>
+      </IonContent>
+    </IonPage>
+  );
+};
+
+export default ChatResults;
                 </div>
                 {!message.isUser && (
                   <div className="w-8 h-8 bg-blue-500 rounded-full flex items-center justify-center ml-2 mt-1">
