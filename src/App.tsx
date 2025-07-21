@@ -1,7 +1,9 @@
-import { Redirect, Route } from 'react-router-dom';
+import { Redirect, Route, BrowserRouter } from 'react-router-dom';
 import { IonApp, IonRouterOutlet, setupIonicReact } from '@ionic/react';
-import { IonReactRouter } from '@ionic/react-router';
 import Home from './pages/Home';
+import VoiceInput from './pages/VoiceInput';
+import ChatResults from './pages/ChatResults';
+import './tailwind.css';
 
 /* Core CSS required for Ionic components to work properly */
 import '@ionic/react/css/core.css';
@@ -37,16 +39,16 @@ setupIonicReact();
 
 const App: React.FC = () => (
   <IonApp>
-    <IonReactRouter>
+    <BrowserRouter>
       <IonRouterOutlet>
-        <Route exact path="/home">
-          <Home />
-        </Route>
+        <Route exact path="/home" component={Home} />
+        <Route exact path="/voice" component={VoiceInput} />
+        <Route exact path="/chat" component={ChatResults} />
         <Route exact path="/">
           <Redirect to="/home" />
         </Route>
       </IonRouterOutlet>
-    </IonReactRouter>
+    </BrowserRouter>
   </IonApp>
 );
 
